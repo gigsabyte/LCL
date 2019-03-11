@@ -224,7 +224,9 @@ GameObject:
   - component: {fileID: 196742484}
   - component: {fileID: 196742487}
   - component: {fileID: 196742489}
+  - component: {fileID: 196742491}
   - component: {fileID: 196742488}
+  - component: {fileID: 196742490}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -365,6 +367,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &196742490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196742483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 339613e2b5be32143b6b0e533e766216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  follower: {fileID: 3079656565594475402, guid: d534a845a1dc6ff4aad132fe72533e88,
+    type: 3}
+  followercount: 4
+--- !u!114 &196742491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 196742483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaaf4a8d1a1a1944bb5822fa3fc3bea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mothCount: 4
+  text: {fileID: 1379436505}
+  tilemap: {fileID: 1327865142}
+  black: {fileID: 4800000, guid: 3706f1ed99803164b8e171458387e323, type: 3}
 --- !u!1 &728104210
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,7 +585,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728104210}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
   m_Name: 

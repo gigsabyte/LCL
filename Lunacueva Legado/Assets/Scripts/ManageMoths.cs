@@ -27,6 +27,8 @@ public class ManageMoths : MonoBehaviour
 
     private Color bgcolor;
 
+    private FollowerManager fm;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +41,9 @@ public class ManageMoths : MonoBehaviour
         renderer.material.shader = black;
         renderer.material.SetColor("_Color", bgcolor);
 
-        
+        fm = gameObject.GetComponent<FollowerManager>();
+
+
     }
 
     // Update is called once per frame
@@ -47,6 +51,7 @@ public class ManageMoths : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space) && !cdEnabled)
         {
+            fm.removeFollower();
             mothCount--;
             text.text = mothCount + " moths remaining";
             cdEnabled = true;
