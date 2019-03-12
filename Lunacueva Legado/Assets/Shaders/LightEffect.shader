@@ -9,7 +9,7 @@ Shader "Unlit/LightEffect"
 		_Color("Color", Color) = (1, 1, 1, 1)
 		_ObjectPos("ObjectPos", Vector) = (-1, -1, 0, 0)
 		_Dist("Dist", Float) = 1
-		_MaxDist("MaxDist", Float) = 10
+		_MaxDist("MaxDist", Float) = 20
     }
     SubShader
     {
@@ -31,6 +31,7 @@ Shader "Unlit/LightEffect"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+				float4 col:COLOR;
             };
 
             struct v2f
@@ -38,6 +39,7 @@ Shader "Unlit/LightEffect"
                 float2 uv : TEXCOORD0;
                 UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
+				float4 col:COLOR;
             };
 
             sampler2D _MainTex;
@@ -59,17 +61,7 @@ Shader "Unlit/LightEffect"
 				float xdist = worldXY.x - objpos.x;
 				float ydist = worldXY.y - objpos.y;
 
-				//_Dist = sqrt((xdist * xdist) + (ydist * ydist));
-
-                o.uv = TRANSFORM_TEX(worldXY, _MainTex);
-				o.uv.x = sqrt((xdist * xdist) + (ydist * ydist));
-                UNITY_TRANSFER_FOG(o,o.vertex);
-                return o;
-            }
-
-            fixed4 frag (v2f i) : SV_Target
-            {
-                float4 closest = float4(0.0, 0.0, 1.0, 1.0);
+				float4 closest = float4(0.0, 0.0, 1.0, 1.0);
 				float4 next = float4(0.0, 1.0, 1.0, 1.0);
 				float4 mid = float4(0.0, 1.0, 1.0, 1.0);
 				float4 farther = float4(0.0, 1.0, 0.0, 1.0);
@@ -78,25 +70,47 @@ Shader "Unlit/LightEffect"
 
 				fixed4 col;
 
-				if(i.uv.x >= _MaxDist) {
+				o.uv.x = sqrt((xdist * xdist) + (ydist * ydist));
+
+				if(o.uv.x > _MaxDist) {
 					col = farthest * _Color;
 				}
-				else if(i.uv.x >= _MaxDist*4/5) {
+				else if(o.uv.x > _MaxDist*4/5) {
 					col = wahh * _Color;
 				}
-				else if(i.uv.x >= _MaxDist*3/5) {
+				else if(o.uv.x > _MaxDist*3/5) {
 					col = farther * _Color;
 				}
-				else if(i.uv.x >= _MaxDist*2/5) {
+				else if(o.uv.x > _MaxDist*2/5) {
 					col = mid * _Color;
 				}
-				else if(i.uv.x >= _MaxDist*1/5) {
+				else if(o.uv.x > _MaxDist*1/5) {
 					col = next * _Color;
 				}
 				else {
 					col = closest * _Color;
 				}
 				col.w = 1;
+
+				o.col = col;
+				//_Dist = sqrt((xdist * xdist) + (ydist * ydist));
+
+                o.uv = TRANSFORM_TEX(worldXY, _MainTex);
+				
+                UNITY_TRANSFER_FOG(o,o.vertex);
+                return o;
+            }
+
+            fixed4 frag (v2f i) : SV_Target
+            {
+				i.col.x = floor(i.col.x * 4)/4;
+				i.col.y = floor(i.col.y * 4)/4;
+				i.col.z = floor(i.col.z * 4)/4;
+                fixed4 col = i.col;
+				
+				col = lerp(i.col, _Color, .1);
+
+				//col *= _Color;
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
