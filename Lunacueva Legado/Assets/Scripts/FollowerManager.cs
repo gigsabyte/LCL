@@ -10,7 +10,10 @@ public class FollowerManager : MonoBehaviour
     private GameObject follower = null;
 
     [SerializeField]
-    private float followercount = 4;
+    private int followercount = 4;
+
+    [SerializeField]
+    private SoundManager sm;
 
     void Awake()
     {
@@ -21,13 +24,15 @@ public class FollowerManager : MonoBehaviour
             followers.Add(Instantiate(follower, updatedpos, transform.rotation));
             if (i == 0)
             {
-                followers[i].GetComponent<PlayerMovement>().tracker = this.gameObject;
+                followers[i].GetComponent<FollowerMovement>().tracker = this.gameObject;
             }
             else
             {
-                followers[i].GetComponent<PlayerMovement>().tracker = followers[i-1];
+                followers[i].GetComponent<FollowerMovement>().tracker = followers[i-1];
             }
         }
+        gameObject.GetComponent<ParticleSystem>().Stop();
+        followers[followercount - 1].GetComponent<ParticleSystem>().Play();
     }
 
     // Update is called once per frame
@@ -57,7 +62,19 @@ public class FollowerManager : MonoBehaviour
     {
         if (followers.Count == 0) return;
 
+        followers[followers.Count - 1].GetComponent<ParticleSystem>().Stop();
+
         followers[followers.Count - 1].GetComponent<FollowerKiller>().Kill();
         followers.RemoveAt(followers.Count - 1);
+
+        if(followers.Count > 0)
+        {
+            followers[followers.Count - 1].GetComponent<ParticleSystem>().Play();
+            sm.DimNextTrack();
+        }
+        else
+        {
+            gameObject.GetComponent<ParticleSystem>().Play();
+        }
     }
 }

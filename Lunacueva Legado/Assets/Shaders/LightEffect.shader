@@ -61,9 +61,9 @@ Shader "Unlit/LightEffect"
 				float xdist = worldXY.x - objpos.x;
 				float ydist = worldXY.y - objpos.y;
 
-				float4 closest = float4(0.0, 0.0, 1.0, 1.0);
-				float4 next = float4(0.0, 1.0, 1.0, 1.0);
-				float4 mid = float4(0.0, 1.0, 1.0, 1.0);
+				float4 closest = float4(0.4, 0.9, 0.3, 1.0);
+				float4 next = float4(0.9, 0.3, 0.4, 1.0);
+				float4 mid = float4(0.3, 0.4, 0.9, 1.0);
 				float4 farther = float4(0.0, 1.0, 0.0, 1.0);
 				float4 wahh = float4(1.0, 1.0, 0.0, 1.0);
 				float4 farthest = float4(1.0, 0.0, 0.0, 1.0);
@@ -115,6 +115,7 @@ Shader "Unlit/LightEffect"
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
             }
+
             ENDCG
         }
     }

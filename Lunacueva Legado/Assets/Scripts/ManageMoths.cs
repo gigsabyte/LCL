@@ -9,10 +9,10 @@ public class ManageMoths : MonoBehaviour
     private float mothCount = 4;
 
     [SerializeField]
-    private Text text;
+    private GameObject tilemap1;
 
     [SerializeField]
-    private GameObject tilemap;
+    private GameObject tilemap2;
 
     private float cooldown = 3;
 
@@ -21,9 +21,9 @@ public class ManageMoths : MonoBehaviour
     [SerializeField]
     private Shader black;
 
-    private Shader standard;
+    private Shader[] standard = new Shader[2];
 
-    private Renderer renderer;
+    private Renderer[] renderer = new Renderer[2];
 
     private Color bgcolor;
 
@@ -32,14 +32,20 @@ public class ManageMoths : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        renderer = tilemap.GetComponent<Renderer>();
+        renderer[0] = tilemap1.GetComponent<Renderer>();
+        renderer[1] = tilemap2.GetComponent<Renderer>();
 
-        standard = renderer.material.shader;
+        standard[0] = renderer[0].material.shader;
+        standard[1] = renderer[0].material.shader;
 
         bgcolor = GameObject.Find("Main Camera").GetComponent<Camera>().backgroundColor;
 
-        renderer.material.shader = black;
-        renderer.material.SetColor("_Color", bgcolor);
+        for(int i = 0; i < renderer.Length; i++)
+        {
+            renderer[i].material.shader = black;
+            renderer[i].material.SetColor("_Color", bgcolor);
+        }
+        
 
         fm = gameObject.GetComponent<FollowerManager>();
 
@@ -53,11 +59,13 @@ public class ManageMoths : MonoBehaviour
         {
             fm.removeFollower();
             mothCount--;
-            text.text = mothCount + " moths remaining";
             cdEnabled = true;
 
-            renderer.material.shader = standard;
-            renderer.material.SetColor("_Color", Color.white);
+            for (int i = 0; i < renderer.Length; i++)
+            {
+                renderer[i].material.shader = standard[i];
+                renderer[i].material.SetColor("_Color", Color.white);
+            }
         }
 
         if (cdEnabled)
@@ -66,10 +74,13 @@ public class ManageMoths : MonoBehaviour
             {
                 cdEnabled = false;
                 cooldown = 3;
-                tilemap.GetComponent<Renderer>().material.shader = black;
-                renderer.material.SetColor("_Color", bgcolor);
+                for (int i = 0; i < renderer.Length; i++)
+                {
+                    renderer[i].material.shader = black;
+                    renderer[i].material.SetColor("_Color", bgcolor);
+                }
 
-                if(mothCount <= 0)
+                if (mothCount <= 0)
                 {
                     gameObject.GetComponent<ChangeScene>().goToScene("Defeat");
                 }
