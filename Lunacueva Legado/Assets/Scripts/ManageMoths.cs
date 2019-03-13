@@ -14,7 +14,7 @@ public class ManageMoths : MonoBehaviour
     [SerializeField]
     private GameObject tilemap2;
 
-    private float cooldown = 3;
+    private float cooldown = 10;
 
     private bool cdEnabled = false;
 
@@ -26,8 +26,11 @@ public class ManageMoths : MonoBehaviour
     private Renderer[] renderer = new Renderer[2];
 
     private Color bgcolor;
+    
+    [SerializeField]
+    private Color scolor = new Color(.14f, .14f, .14f, 1f);
 
-    private FollowerManager fm;
+    private FollowerManager fm = null;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +39,7 @@ public class ManageMoths : MonoBehaviour
         renderer[1] = tilemap2.GetComponent<Renderer>();
 
         standard[0] = renderer[0].material.shader;
-        standard[1] = renderer[0].material.shader;
+        standard[1] = renderer[1].material.shader;
 
         bgcolor = GameObject.Find("Main Camera").GetComponent<Camera>().backgroundColor;
 
@@ -61,11 +64,11 @@ public class ManageMoths : MonoBehaviour
             mothCount--;
             cdEnabled = true;
 
-            for (int i = 0; i < renderer.Length; i++)
-            {
-                renderer[i].material.shader = standard[i];
-                renderer[i].material.SetColor("_Color", Color.white);
-            }
+            renderer[0].material.shader = standard[0];
+            renderer[0].material.SetColor("_Color", scolor);
+
+            renderer[1].material.shader = standard[1];
+            renderer[1].material.SetColor("_Color", Color.white);
         }
 
         if (cdEnabled)
@@ -73,7 +76,7 @@ public class ManageMoths : MonoBehaviour
             if(cooldown <= 0)
             {
                 cdEnabled = false;
-                cooldown = 3;
+                cooldown = 10;
                 for (int i = 0; i < renderer.Length; i++)
                 {
                     renderer[i].material.shader = black;

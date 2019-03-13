@@ -30,7 +30,7 @@ public class FollowerMovement : MonoBehaviour
         Vector2 moveVec = new Vector2(x, y);
         transform.up = moveVec;
 
-        if(moveVec.magnitude > 1)
+        if(moveVec.magnitude >= 1)
         {
             Vector3 newpos = transform.up.normalized * speed * Time.deltaTime;
             transform.position = Vector3.Lerp(transform.position + newpos, transform.position, Time.deltaTime * speed);

@@ -68,32 +68,19 @@ Shader "Unlit/LightEffect"
 				float4 wahh = float4(1.0, 1.0, 0.0, 1.0);
 				float4 farthest = float4(1.0, 0.0, 0.0, 1.0);
 
+				float4 green = float4(0.0, 1.0, 0.0, 1.0);
+				float4 blue = float4(0.0, 0.0, 1.0, 1.0);
+
 				fixed4 col;
 
-				o.uv.x = sqrt((xdist * xdist) + (ydist * ydist));
+				float distr = _MaxDist / sqrt((xdist * xdist) + (ydist * ydist));
 
-				if(o.uv.x > _MaxDist) {
-					col = farthest * _Color;
-				}
-				else if(o.uv.x > _MaxDist*4/5) {
-					col = wahh * _Color;
-				}
-				else if(o.uv.x > _MaxDist*3/5) {
-					col = farther * _Color;
-				}
-				else if(o.uv.x > _MaxDist*2/5) {
-					col = mid * _Color;
-				}
-				else if(o.uv.x > _MaxDist*1/5) {
-					col = next * _Color;
-				}
-				else {
-					col = closest * _Color;
-				}
-				col.w = 1;
+				float time = sin(_Time.y/2)/2 + .5;
+				o.col = lerp(green, blue, time);
 
-				o.col = col;
-				//_Dist = sqrt((xdist * xdist) + (ydist * ydist));
+				o.col = distr * o.col;
+
+				o.col = _Color * o.col;
 
                 o.uv = TRANSFORM_TEX(worldXY, _MainTex);
 				
@@ -103,13 +90,16 @@ Shader "Unlit/LightEffect"
 
             fixed4 frag (v2f i) : SV_Target
             {
-				i.col.x = floor(i.col.x * 4)/4;
-				i.col.y = floor(i.col.y * 4)/4;
-				i.col.z = floor(i.col.z * 4)/4;
-                fixed4 col = i.col;
 				
-				col = lerp(i.col, _Color, .1);
 
+				i.col.x = floor(i.col.x * 8)/8;
+				i.col.y = floor(i.col.y * 8)/8;
+				i.col.z = floor(i.col.z * 8)/8;
+
+                fixed4 col = i.col;
+
+				 //sin(floor(_Time.y))/2 + 0.5;
+				//time = floor(time * 10)/10;
 				//col *= _Color;
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
