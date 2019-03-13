@@ -14,7 +14,7 @@ public class ManageMoths : MonoBehaviour
     [SerializeField]
     private GameObject tilemap2;
 
-    private float cooldown = 10;
+    private float cooldown = 4;
 
     private bool cdEnabled = false;
 
@@ -76,7 +76,7 @@ public class ManageMoths : MonoBehaviour
             if(cooldown <= 0)
             {
                 cdEnabled = false;
-                cooldown = 10;
+                cooldown = 4;
                 for (int i = 0; i < renderer.Length; i++)
                 {
                     renderer[i].material.shader = black;

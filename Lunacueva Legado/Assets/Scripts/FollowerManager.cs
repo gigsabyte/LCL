@@ -90,7 +90,9 @@ public class FollowerManager : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
 
-        followers[followers.Count - 1].GetComponent<ParticleSystem>().Stop();
+        if(followers.Count == 0) gameObject.GetComponent<ParticleSystem>().Stop();
+        else followers[followers.Count - 1].GetComponent<ParticleSystem>().Stop();
+
 
         followers.Add(nf);
 
@@ -104,7 +106,7 @@ public class FollowerManager : MonoBehaviour
         {
             followers[followers.Count - 1].GetComponent<FollowerMovement>().tracker = followers[followers.Count-2];
         }
-        if (followers.Count >= followercount) return;
+        if (followers.Count > followercount) return;
         sm.RestoreLastTrack();
     }
 }
