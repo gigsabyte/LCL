@@ -7,6 +7,8 @@ public class SoundManager : MonoBehaviour
     private List<AudioSource> tracks;
     private int trackIndex;
 
+    private bool isFading;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,7 @@ public class SoundManager : MonoBehaviour
         }
 
         trackIndex = tracks.Count;
+        isFading = false;
     }
 
     // Update is called once per frame
@@ -43,8 +46,25 @@ public class SoundManager : MonoBehaviour
 
     }
 
+    public void RestoreLastTrack()
+    {
+        if (trackIndex < 0)
+        {
+            trackIndex = 0;
+            return;
+        } else if (trackIndex >= tracks.Count -1)
+        {
+            trackIndex = tracks.Count - 1;
+        }
+        StartCoroutine(FadeIn(tracks[trackIndex]));
+
+        trackIndex++;
+
+    }
+
     private IEnumerator FadeOut(AudioSource aud)
     {
+        isFading = true;
         while(aud.volume > 0)
         {
             aud.volume -= .1f;
@@ -56,6 +76,7 @@ public class SoundManager : MonoBehaviour
 
     private IEnumerator FadeIn(AudioSource aud)
     {
+        if (isFading) yield return new WaitForSeconds(1f);
         while (aud.volume < 1)
         {
             aud.volume += .1f;

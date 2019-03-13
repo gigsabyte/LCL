@@ -21,6 +21,8 @@ public class FollowerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (tracker == null) return;
+
         float x = tracker.transform.position.x - tracker.transform.forward.normalized.x;
         float y = tracker.transform.position.y - tracker.transform.forward.normalized.y;
 

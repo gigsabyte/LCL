@@ -60,7 +60,11 @@ public class FollowerManager : MonoBehaviour
 
     public void removeFollower()
     {
-        if (followers.Count == 0) return;
+        if (followers.Count == 0)
+        {
+            gameObject.GetComponent<ChangeScene>().goToScene("Defeat");
+            return;
+        }
 
         followers[followers.Count - 1].GetComponent<ParticleSystem>().Stop();
 
@@ -76,5 +80,31 @@ public class FollowerManager : MonoBehaviour
         {
             gameObject.GetComponent<ParticleSystem>().Play();
         }
+    }
+
+    public void addFollower(GameObject nf)
+    {
+
+        foreach (Transform child in nf.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        followers[followers.Count - 1].GetComponent<ParticleSystem>().Stop();
+
+        followers.Add(nf);
+
+        followers[followers.Count - 1].GetComponent<ParticleSystem>().Play();
+
+        if(followers.Count == 1)
+        {
+            followers[followers.Count - 1].GetComponent<FollowerMovement>().tracker = this.gameObject;
+        }
+        else
+        {
+            followers[followers.Count - 1].GetComponent<FollowerMovement>().tracker = followers[followers.Count-2];
+        }
+        if (followers.Count >= followercount) return;
+        sm.RestoreLastTrack();
     }
 }

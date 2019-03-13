@@ -82,11 +82,6 @@ public class ManageMoths : MonoBehaviour
                     renderer[i].material.shader = black;
                     renderer[i].material.SetColor("_Color", bgcolor);
                 }
-
-                if (mothCount <= 0)
-                {
-                    gameObject.GetComponent<ChangeScene>().goToScene("Defeat");
-                }
             }
             else
             {
