@@ -5,6 +5,8 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     private List<AudioSource> tracks;
+    private List<int> fades;
+
     private int trackIndex;
 
     private bool isFading;
@@ -16,6 +18,7 @@ public class SoundManager : MonoBehaviour
     {
 
         tracks = new List<AudioSource>();
+        fades = new List<int>();
 
         Component[] audiosources;
 
@@ -24,7 +27,10 @@ public class SoundManager : MonoBehaviour
         foreach (AudioSource track in audiosources)
         {
             tracks.Add(track);
+            fades.Add(0);
         }
+
+
 
         trackIndex = tracks.Count;
         isFading = false;
@@ -36,20 +42,16 @@ public class SoundManager : MonoBehaviour
         
     }
 
-    public void DimNextTrack()
+    public void DimNextTrack(int count)
     {
-        trackIndex--;
-        if(trackIndex < 0)
-        {
-            trackIndex = 0;
-            return;
-        }
-        StartCoroutine(FadeOut(tracks[trackIndex]));
-        lastFaded = tracks[trackIndex];
+        if (count >= tracks.Count) return;
+
+        StartCoroutine(FadeOut(tracks[count]));
+        lastFaded = tracks[count];
 
     }
 
-    public void RestoreLastTrack()
+    public void RestoreLastTrack(int count)
     {
         trackIndex = tracks.IndexOf(lastFaded);
         if (trackIndex < 0)

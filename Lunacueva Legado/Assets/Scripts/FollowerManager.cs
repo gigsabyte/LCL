@@ -74,7 +74,7 @@ public class FollowerManager : MonoBehaviour
         if(followers.Count > 0)
         {
             followers[followers.Count - 1].GetComponent<ParticleSystem>().Play();
-            sm.DimNextTrack();
+            sm.DimNextTrack(followers.Count);
         }
         else
         {
@@ -107,6 +107,6 @@ public class FollowerManager : MonoBehaviour
             followers[followers.Count - 1].GetComponent<FollowerMovement>().tracker = followers[followers.Count-2];
         }
         if (followers.Count > followercount) return;
-        sm.RestoreLastTrack();
+        sm.RestoreLastTrack(followers.Count);
     }
 }
