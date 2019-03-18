@@ -30,7 +30,7 @@ public class ManageMoths : MonoBehaviour
     [SerializeField]
     private Color scolor = new Color(.14f, .14f, .14f, 1f);
 
-    private FollowerManager fm = null;
+    private FollowerManager fm;
 
     // Start is called before the first frame update
     void Start()

@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Victory.unity
     guid: 3615df423db27664f9e63be4b030129a
+  - enabled: 1
+    path: Assets/Scenes/Prologue.unity
+    guid: e695ee93d7757ae4f94b073b1233ef2f
   m_configObjects: {}
