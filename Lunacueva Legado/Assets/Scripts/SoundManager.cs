@@ -87,4 +87,9 @@ public class SoundManager : MonoBehaviour
 
         aud.volume = 1;
     }
+
+    public void ReviveTrack(AudioSource aud)
+    {
+        StartCoroutine(FadeIn(aud));
+    }
 }
