@@ -1,33 +1,43 @@
 
 h
-Left click to move.
+left click to move.
+
 h
-Long ago, there came a traveler
+long ago, there came a traveler
 who told us of place 
 where light filled the world.
+
 h
-We have never known such a thing.
+we have never known such a thing.
+
 h
-We are creatures of the dark.
-For us, light is our dying gift.
+we are creatures of the dark.
+for us, light is our dying gift.
+
 h
-Right click to sacrifice.
+right click to sacrifice.
+
 h
-Tempted by the traveler's tale,
+tempted by the traveler's tale,
 we built a great ship, 
 fueled by the memories of our loved ones.
+
 h
-It disappeared into the dark, 
+tt disappeared into the dark, 
 a trail of torches left along its path.
+
 h
-It must have failed.
-The torches died out, and 
+it must have failed.
+the torches died out, and 
 the ship was lost to the depths.
+
 h
 But we can't let that be end...
+
 h
-We must find it.
-We must not let this be in vain.
+we must find it.
+we must not let this be in vain.
 h
-If we just follow the light...
+if we just follow the light...
+
 h

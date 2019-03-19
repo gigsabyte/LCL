@@ -15,6 +15,9 @@ public class FollowerManager : MonoBehaviour
     [SerializeField]
     private SoundManager sm;
 
+    [SerializeField]
+    FadeOut fo;
+
     void Awake()
     {
         Vector3 updatedpos = transform.position;
@@ -62,7 +65,7 @@ public class FollowerManager : MonoBehaviour
     {
         if (followers.Count == 0)
         {
-            gameObject.GetComponent<ChangeScene>().goToScene("Defeat");
+           fo.Transition();
             return;
         }
 

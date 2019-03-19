@@ -64,7 +64,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _MaxDist: 100
+    - _MaxDist: 150
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -79,4 +79,4 @@ Material:
     - _AspectRatio: {r: 2, g: 1, b: 0, a: 0}
     - _Color: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _ObjectPos: {r: 57, g: 11, b: 0, a: 0}
+    - _ObjectPos: {r: 59.39, g: 11.62, b: 0, a: 0}
