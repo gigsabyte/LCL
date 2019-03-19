@@ -58,7 +58,7 @@ public class ManageMoths : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && !cdEnabled)
+        if(Input.GetMouseButtonDown(1) && !cdEnabled)
         {
             fm.removeFollower();
             mothCount--;
