@@ -62,7 +62,7 @@ public class SoundManager : MonoBehaviour
         {
             trackIndex = tracks.Count - 1;
         }
-        StartCoroutine(FadeIn(lastFaded));
+        if(lastFaded != null) StartCoroutine(FadeIn(lastFaded));
     }
 
     private IEnumerator FadeOut(AudioSource aud)
@@ -88,6 +88,7 @@ public class SoundManager : MonoBehaviour
         }
 
         aud.volume = 1;
+        lastFaded = tracks[tracks.IndexOf(lastFaded) + 1];
     }
 
     public void ReviveTrack(AudioSource aud)
